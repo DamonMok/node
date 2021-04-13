@@ -1,4 +1,4 @@
-const { create } = require('../service/userService')
+const service = require('../service/userService')
 
 class UserController {
   async create(ctx, next) {
@@ -6,7 +6,7 @@ class UserController {
     const user = ctx.request.body
 
     // 查询数据库
-    const res = await create(user)
+    const res = await service.create(user)
 
     // 返回数据
     ctx.body = res
