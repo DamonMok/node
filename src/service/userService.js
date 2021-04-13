@@ -1,7 +1,7 @@
 class UserService {
-  async create() {
+  async create(user) {
     // 将user保存到数据库
-    return "用户创建成功"
+    return `用户[${user.username}]注册成功！`
   }
 }
 
