@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/DamonMok/node#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "koa": "^2.13.1"
   },
   "devDependencies": {
