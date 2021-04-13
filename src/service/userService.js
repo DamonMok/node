@@ -8,7 +8,16 @@ class UserService {
     const statement = `INSERT INTO users (name, password) VALUES (?, ?);`
     const result = await connection.execute(statement, [name, password])
 
-    return result
+    return result[0]
+  }
+
+  async getUserByName(name) {
+
+    // 根据name查询是否用户已存在
+    const statement = `SELECT * FROM users WHERE name = ?;`
+    const result = await connection.execute(statement, [name])
+
+    return result[0]
   }
 }
 
