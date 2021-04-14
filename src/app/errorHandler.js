@@ -12,6 +12,14 @@ const errorHandle = (error, ctx) => {
       status = 409
       message = "用户已存在!"
       break;
+    case errorType.USER_DOSE_NOT_EXIST:
+      status = 400
+      message = "用户不存在!"
+      break;
+    case errorType.PASSWORD_IS_INCORRECT:
+      status = 400
+      message = "用户名或密码错误!"
+      break;
     default:
       break;
   }

@@ -2,8 +2,8 @@ const errorType = require('../constants/errorTypes')
 const service = require('../service/userService')
 const md5Password = require('../utils/passwordHandle')
 
-// 验证注册
-const verifyUser = async (ctx, next) => {
+// 验证登录
+const verifyLogin = async (ctx, next) => {
   // 1.获取用户名密码
   const { name, password } = ctx.request.body
 
@@ -15,23 +15,21 @@ const verifyUser = async (ctx, next) => {
 
   // 3.判断用户名是否已存在
   const result = await service.getUserByName(name)
-  if (result.length) {
-    const error = new Error(errorType.USER_ALREADY_EXISTS)
+  const user = result[0]
+  if (!user) {
+    const error = new Error(errorType.USER_DOSE_NOT_EXIST)
+    return ctx.app.emit('error', error, ctx)
+  }
+
+  // 4.判断密码是否正确
+  if (md5Password(password) !== user.password) {
+    const error = new Error(errorType.PASSWORD_IS_INCORRECT)
     return ctx.app.emit('error', error, ctx)
   }
 
   await next()
 }
 
-// 使用md5加密密码
-const handlePassword = async (ctx, next) => {
-  const { password } = ctx.request.body
-  ctx.request.body.password = md5Password(password)
-
-  await next()
-}
-
 module.exports = {
-  verifyUser,
-  handlePassword,
+  verifyLogin,
 }
