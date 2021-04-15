@@ -5,6 +5,7 @@ const service = require('../service/userService')
 const md5Password = require('../utils/passwordHandle')
 const config = require('../app/config')
 const errorTypes = require('../constants/errorTypes')
+const app = require('../app')
 
 // 验证登录
 const verifyLogin = async (ctx, next) => {
@@ -41,8 +42,14 @@ const verifyLogin = async (ctx, next) => {
 const verifyAuth = async (ctx, next) => {
   // 1.获取token
   const authorization = ctx.header.authorization
+  if (!authorization) {
+    // token为空
+    const err = new Error(errorType.UNAUTHORIZATION)
+    return ctx.app.emit('error', err, ctx)
+  }
+
   const token = authorization.replace('Bearer ', '')  // 去掉token前多余的Bearer 字符串
-  console.log(token);
+
   // 2.验证token
   try {
     // 验证通过
