@@ -1,5 +1,5 @@
 const errorType = require('../constants/errorTypes')
-const service = require('../service/userService')
+const userService = require('../service/userService')
 const md5Password = require('../utils/passwordHandle')
 
 // 验证注册
@@ -14,7 +14,7 @@ const verifyUser = async (ctx, next) => {
   }
 
   // 3.判断用户名是否已存在
-  const result = await service.getUserByName(name)
+  const result = await userService.getUserByName(name)
   if (result.length) {
     const error = new Error(errorType.USER_ALREADY_EXISTS)
     return ctx.app.emit('error', error, ctx)

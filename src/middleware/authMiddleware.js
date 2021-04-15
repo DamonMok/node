@@ -60,6 +60,7 @@ const verifyAuth = async (ctx, next) => {
     await next()
   } catch (error) {
     // 验证失败
+    console.log(error);
     const err = new Error(errorType.UNAUTHORIZATION)
     ctx.app.emit('error', err, ctx)
   }
