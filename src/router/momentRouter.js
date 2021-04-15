@@ -1,7 +1,6 @@
 const Router = require('koa-router')
 const { verifyAuth } = require('../middleware/authMiddleware')
-const { create, detail } = require('../controller/momentController')
-const { prefix } = require('./authRouter')
+const { create, detail, list } = require('../controller/momentController')
 
 const momentRouter = new Router({ prefix: '/moment' })
 
@@ -10,5 +9,9 @@ momentRouter.post('/', verifyAuth, create)
 
 // 根据动态ID查询动态
 momentRouter.get('/:momentId', detail)
+
+// 查询分页动态
+momentRouter.get('/', list)
+
 
 module.exports = momentRouter

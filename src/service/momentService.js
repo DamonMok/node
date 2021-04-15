@@ -10,7 +10,7 @@ class MomentService {
     return result[0]
   }
 
-  // 根据动态id查询动态数据
+  // 根据动态id查询动态数据(单个)
   async getMomentById(momentId) {
 
     const statement = `
@@ -23,6 +23,22 @@ class MomentService {
       WHERE m.id = ?;
     `
     const result = await connect.execute(statement, [momentId])
+    return result[0]
+  }
+
+  // 查询分页动态数据(多个)
+  async getMomentList(offset, size) {
+
+    const statement = `
+      SELECT
+        m.id id, m.content content, m.createAt createTime, m.updateAt updateTime,
+        JSON_OBJECT('id', u.id, 'name', u.name) author
+      FROM moment m
+      LEFT JOIN user u
+      ON m.user_id = u.id
+      LIMIT ? , ?;
+    `
+    const result = await connect.execute(statement, [offset, size])
     return result[0]
   }
 }
