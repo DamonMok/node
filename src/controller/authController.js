@@ -1,12 +1,25 @@
+const jwt = require('jsonwebtoken')
+const config = require('../app/config')
+
 class AuthController {
   async login(ctx, next) {
-    // 接收用户请求传递过来的参数
-    const user = ctx.request.body
+    // 获取数据库中用户的相关信息
+    const { id, name } = ctx.user
 
-    // 查询数据库
+    // 生成token
+    const token = jwt.sign({ id, name }, config.PRIVATE_KEY, {
+      // token过期时间
+      expiresIn: 24 * 60 * 60,
+      // jwt默认加密算法为SH256,所以需要指定加密算法为和openssl生成的公钥私钥一样的加密算法
+      algorithm: 'RS256'
+    })
 
     // 返回数据
-    ctx.body = `用户[${user.name}]登录成功!`
+    ctx.body = {
+      id,
+      name,
+      token
+    }
   }
 }
 

@@ -27,6 +27,9 @@ const verifyLogin = async (ctx, next) => {
     return ctx.app.emit('error', error, ctx)
   }
 
+  // 用于authController中生成token
+  ctx.user = user
+
   await next()
 }
 
