@@ -1,6 +1,6 @@
 const Router = require('koa-router')
 const { verifyAuth, VerifyPermission } = require('../middleware/authMiddleware')
-const { create, reply, update } = require('../controller/commentController')
+const { create, reply, update, remove } = require('../controller/commentController')
 
 
 const commentRouter = new Router({ prefix: '/comment' })
@@ -13,5 +13,8 @@ commentRouter.post('/:commentId/reply', verifyAuth, reply)
 
 // 修改评论
 commentRouter.patch('/:commentId', verifyAuth, VerifyPermission, update)
+
+// 删除评论
+commentRouter.delete('/:commentId', verifyAuth, VerifyPermission, remove)
 
 module.exports = commentRouter

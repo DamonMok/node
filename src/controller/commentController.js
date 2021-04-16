@@ -40,6 +40,18 @@ class CommentController {
     // 3.返回响应
     ctx.body = result
   }
+
+  // 删除评论
+  async remove(ctx, next) {
+    // 1.获取评论的id
+    const { commentId } = ctx.params
+
+    // 2.修改数据库中对应的评论
+    const result = await commentService.removeComment(commentId)
+
+    // 3.返回响应
+    ctx.body = result
+  }
 }
 
 module.exports = new CommentController()
