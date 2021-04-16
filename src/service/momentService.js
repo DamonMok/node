@@ -48,6 +48,14 @@ class MomentService {
     const [result] = await connect.execute(statement, [content, momentId])
     return result
   }
+
+  // 删除动态数据
+  async removeMoment(momentId) {
+
+    const statement = `DELETE FROM moment WHERE id = ?;`
+    const [result] = await connect.execute(statement, [momentId])
+    return result
+  }
 }
 
 module.exports = new MomentService()

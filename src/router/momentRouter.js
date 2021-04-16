@@ -1,6 +1,6 @@
 const Router = require('koa-router')
 const { verifyAuth, VerifyPermission } = require('../middleware/authMiddleware')
-const { create, detail, list, update } = require('../controller/momentController')
+const { create, detail, list, update, remove } = require('../controller/momentController')
 
 const momentRouter = new Router({ prefix: '/moment' })
 
@@ -15,6 +15,9 @@ momentRouter.get('/', list)
 
 // 修改动态
 momentRouter.patch('/:momentId', verifyAuth, VerifyPermission, update)
+
+// 删除动态
+momentRouter.delete('/:momentId', verifyAuth, VerifyPermission, remove)
 
 
 module.exports = momentRouter

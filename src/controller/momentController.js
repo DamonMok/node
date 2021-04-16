@@ -52,6 +52,18 @@ class MomentController {
     // 3.返回响应
     ctx.body = result
   }
+
+  // 删除动态
+  async remove(ctx, next) {
+    // 1.获取要输出动态的id
+    const { momentId } = ctx.params
+
+    // 2.从数据库中删除动态
+    const result = await momentService.removeMoment(momentId)
+
+    // 3.返回响应
+    ctx.body = result
+  }
 }
 
 module.exports = new MomentController()
