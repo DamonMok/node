@@ -14,6 +14,13 @@ class CommentService {
     const [result] = await connect.execute(statement, [momentId, content, userId, commentId])
     return result
   }
+
+  // 修改评论
+  async updateComment(commentId, content) {
+    const statement = `UPDATE comment SET content = ? WHERE id = ?;`
+    const [result] = await connect.execute(statement, [content, commentId])
+    return result
+  }
 }
 
 module.exports = new CommentService()

@@ -27,6 +27,19 @@ class CommentController {
     // 3.返回响应
     ctx.body = result
   }
+
+  // 修改评论
+  async update(ctx, next) {
+    // 1.获取评论的id、要修改评论的内容
+    const { commentId } = ctx.params
+    const { content } = ctx.request.body
+
+    // 2.把评论插入到数据库
+    const result = await commentService.updateComment(commentId, content)
+
+    // 3.返回响应
+    ctx.body = result
+  }
 }
 
 module.exports = new CommentController()
