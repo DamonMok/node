@@ -68,12 +68,14 @@ const verifyAuth = async (ctx, next) => {
 }
 
 const VerifyPermission = async (ctx, next) => {
-  // 1.获取moentId/userId
-  const { momentId } = ctx.params
+  // 1.获取当前需要权限验证对应的table表的表名、需要编辑/删除数据的id、当前登录用户的id
+  const [key] = Object.keys(ctx.params)
+  const tableName = key.replace('Id', '')
+  const rowId = ctx.params[key]
   const userId = ctx.user.id
 
-  // 2.查询是否具备权限：判断数据库中动态的user_id是否为当前登录用户的id
-  const isPermission = await authService.checkMomentPermission(momentId, userId)
+  // 2.查询是否具备权限：判断数据库中table的user_id是否为当前登录用户的id
+  const isPermission = await authService.checkPermission(tableName, rowId, userId)
 
   if (!isPermission) {
     // 没有权限

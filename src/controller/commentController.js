@@ -34,7 +34,7 @@ class CommentController {
     const { commentId } = ctx.params
     const { content } = ctx.request.body
 
-    // 2.把评论插入到数据库
+    // 2.修改数据库中对应的评论
     const result = await commentService.updateComment(commentId, content)
 
     // 3.返回响应
