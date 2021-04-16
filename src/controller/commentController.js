@@ -13,6 +13,20 @@ class CommentController {
     // 3.返回响应
     ctx.body = result
   }
+
+  // 回复评论 
+  async reply(ctx, next) {
+    // 1.获取评论的动态id、评论的内容、评论者的id、对应评论的Id
+    const { momentId, content } = ctx.request.body
+    const userId = ctx.user.id
+    const { commentId } = ctx.params
+
+    // 2.把评论插入到数据库
+    const result = await commentService.replyComment(momentId, content, userId, commentId)
+
+    // 3.返回响应
+    ctx.body = result
+  }
 }
 
 module.exports = new CommentController()
