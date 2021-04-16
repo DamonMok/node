@@ -41,6 +41,13 @@ class MomentService {
     const result = await connect.execute(statement, [offset, size])
     return result[0]
   }
+
+  // 修改动态数据
+  async updateMoment(momentId, content) {
+    const statement = `UPDATE moment SET content = ? WHERE id = ?;`
+    const [result] = await connect.execute(statement, [content, momentId])
+    return result
+  }
 }
 
 module.exports = new MomentService()

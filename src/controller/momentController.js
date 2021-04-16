@@ -39,15 +39,18 @@ class MomentController {
     ctx.body = result
   }
 
+  // 修改动态
   async update(ctx, next) {
 
     // 1.获取动态id、要更新的内容content、用户id
     const { momentId } = ctx.params
     const { content } = ctx.request.body
-    const user = ctx.user
 
-    // 返回响应
-    ctx.body = '修改成功' + momentId + content + user.id
+    // 2.修改数据库中动态的信息
+    const result = await momentService.updateMoment(momentId, content)
+
+    // 3.返回响应
+    ctx.body = result
   }
 }
 
