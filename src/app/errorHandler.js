@@ -24,6 +24,10 @@ const errorHandle = (error, ctx) => {
       status = 401
       message = "授权失败，无效的token!"
       break;
+    case errorType.PERMISSION_DENIED:
+      status = 401
+      message = "没有相应的操作权限!"
+      break;
     default:
       break;
   }
