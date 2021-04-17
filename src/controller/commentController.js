@@ -60,10 +60,10 @@ class CommentController {
     const { momentId } = ctx.query
 
     // 2.校验参数
-    if (!momentId) {
-      const error = new Error(errorTypes.PARAMS_ERROR)
-      return ctx.app.emit('error', error, ctx)
-    }
+    // if (!momentId) {
+    //   const error = new Error(errorTypes.PARAMS_ERROR)
+    //   return ctx.app.emit('error', error, ctx)
+    // }
 
     // 2.逻辑处理：获取数据库中的评论列表
     const result = await commentService.getCommentsByMomentId(momentId)
