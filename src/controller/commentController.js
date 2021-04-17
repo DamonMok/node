@@ -1,4 +1,5 @@
 const commentService = require('../service/commentService')
+const errorTypes = require('../constants/errorTypes')
 
 class CommentController {
   // 发表评论 
@@ -48,6 +49,24 @@ class CommentController {
 
     // 2.修改数据库中对应的评论
     const result = await commentService.removeComment(commentId)
+
+    // 3.返回响应
+    ctx.body = result
+  }
+
+  // 某条动态对应的评论列表
+  async list(ctx, next) {
+    // 1.获取参数：获取动态id
+    const { momentId } = ctx.query
+
+    // 2.校验参数
+    if (!momentId) {
+      const error = new Error(errorTypes.PARAMS_ERROR)
+      return ctx.app.emit('error', error, ctx)
+    }
+
+    // 2.逻辑处理：获取数据库中的评论列表
+    const result = await commentService.getCommentsByMomentId(momentId)
 
     // 3.返回响应
     ctx.body = result

@@ -5,6 +5,8 @@ const PASSWORD_IS_INCORRECT = 'password_is_incorrect'
 const UNAUTHORIZATION = 'unauthorization'
 const PERMISSION_DENIED = 'permission_denied'
 
+const PARAMS_ERROR = 'params_error'
+
 
 
 module.exports = {
@@ -13,5 +15,6 @@ module.exports = {
   USER_DOSE_NOT_EXIST,
   PASSWORD_IS_INCORRECT,
   UNAUTHORIZATION,
-  PERMISSION_DENIED
+  PERMISSION_DENIED,
+  PARAMS_ERROR
 }

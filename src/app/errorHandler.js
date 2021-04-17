@@ -28,6 +28,10 @@ const errorHandle = (error, ctx) => {
       status = 401
       message = "没有相应的操作权限!"
       break;
+    case errorType.PARAMS_ERROR:
+      status = 400
+      message = "参数错误!"
+      break;
     default:
       break;
   }
