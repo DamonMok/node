@@ -10,7 +10,7 @@ class MomentService {
     return result[0]
   }
 
-  // 根据动态id查询动态数据(单个)
+  // 根据动态id查询动态数据(详情)
   async getMomentById(momentId) {
 
     const statement = `
@@ -26,13 +26,14 @@ class MomentService {
     return result[0]
   }
 
-  // 查询分页动态数据(多个)
+  // 查询分页动态数据(列表)
   async getMomentList(offset, size) {
 
     const statement = `
       SELECT
         m.id id, m.content content, m.createAt createTime, m.updateAt updateTime,
-        JSON_OBJECT('id', u.id, 'name', u.name) author
+        JSON_OBJECT('id', u.id, 'name', u.name) author,
+        (SELECT COUNT(*) FROM comment c WHERE c.moment_id = m.id) commentCount
       FROM moment m
       LEFT JOIN user u
       ON m.user_id = u.id

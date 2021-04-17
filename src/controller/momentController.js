@@ -14,7 +14,7 @@ class MomentController {
     ctx.body = result
   }
 
-  // 根据动态id查询动态(单个)
+  // 根据动态id查询动态(详情)
   async detail(ctx, next) {
     // 1.获取动态id
     const momentId = ctx.params.momentId
@@ -26,7 +26,7 @@ class MomentController {
     ctx.body = result
   }
 
-  // 查询分页动态(多个)
+  // 查询分页动态(列表)
   async list(ctx, next) {
 
     // 1.获取offset和size
