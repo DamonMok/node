@@ -1,5 +1,5 @@
 const Router = require('koa-router')
-const { verifyAuth, VerifyPermission } = require('../middleware/authMiddleware')
+const { verifyAuth, verifyPermission } = require('../middleware/authMiddleware')
 const { create, reply, update, remove, list } = require('../controller/commentController')
 
 
@@ -12,10 +12,10 @@ commentRouter.post('/', verifyAuth, create)
 commentRouter.post('/:commentId/reply', verifyAuth, reply)
 
 // 修改评论
-commentRouter.patch('/:commentId', verifyAuth, VerifyPermission, update)
+commentRouter.patch('/:commentId', verifyAuth, verifyPermission, update)
 
 // 删除评论
-commentRouter.delete('/:commentId', verifyAuth, VerifyPermission, remove)
+commentRouter.delete('/:commentId', verifyAuth, verifyPermission, remove)
 
 // 对应某条动态的评论列表
 commentRouter.get('/', list)

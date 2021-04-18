@@ -67,7 +67,7 @@ const verifyAuth = async (ctx, next) => {
   }
 }
 
-const VerifyPermission = async (ctx, next) => {
+const verifyPermission = async (ctx, next) => {
   // 1.获取当前需要权限验证对应的table表的表名、需要编辑/删除数据的id、当前登录用户的id
   const [key] = Object.keys(ctx.params)
   const tableName = key.replace('Id', '')
@@ -89,5 +89,5 @@ const VerifyPermission = async (ctx, next) => {
 module.exports = {
   verifyLogin,
   verifyAuth,
-  VerifyPermission
+  verifyPermission
 }
