@@ -70,7 +70,6 @@ class MomentController {
   async addLabels(ctx, next) {
     // 1.获取数据
     const labels = ctx.labels
-    console.log(ctx.labels);
     const { momentId } = ctx.params
 
     // 2.逻辑处理

@@ -20,6 +20,18 @@ class LabelController {
     // 4.返回响应 
     ctx.body = result
   }
+
+  // 标签列表
+  async list(ctx, next) {
+    // 1.接收分页数据
+    const { offset, size } = ctx.query
+    console.log(offset, size);
+    // 2.查询数据库
+    const result = await labelService.getLabelList(offset, size)
+
+    // 3.返回响应
+    ctx.body = result
+  }
 }
 
 module.exports = new LabelController()

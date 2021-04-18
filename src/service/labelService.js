@@ -16,6 +16,12 @@ class LabelService {
     return result
   }
 
+  // 查询分页标签列表
+  async getLabelList(offset, size) {
+    const statement = `SELECT * FROM label LIMIT ?, ?;`
+    const [result] = await connect.execute(statement, [offset, size])
+    return result
+  }
 }
 
 module.exports = new LabelService()

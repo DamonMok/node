@@ -67,7 +67,6 @@ class MomentService {
 
   // 添加标签
   async addLabel(momentId, labelId) {
-    console.log(momentId, labelId);
     const statement = `INSERT INTO moment_label (moment_id, label_id) VALUES (?, ?);`
     const [result] = await connect.execute(statement, [momentId, labelId])
     return result
