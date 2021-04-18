@@ -15,6 +15,7 @@ class LabelService {
     const [result] = await connect.execute(statement, [labelName])
     return result
   }
+
 }
 
 module.exports = new LabelService()

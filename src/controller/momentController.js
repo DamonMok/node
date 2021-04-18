@@ -1,3 +1,4 @@
+const labelService = require('../service/labelService')
 const momentService = require('../service/momentService')
 
 class MomentController {
@@ -66,15 +67,24 @@ class MomentController {
   }
 
   // 给动态添加标签
-  async labels(ctx, next) {
+  async addLabels(ctx, next) {
     // 1.获取数据
-    const { labels } = ctx.request.body
+    const labels = ctx.labels
+    console.log(ctx.labels);
     const { momentId } = ctx.params
 
     // 2.逻辑处理
+    for (const label of labels) {
+      const isExists = await momentService.relationshipBetweenMomentAndLabel(momentId, label.id)
+      if (!isExists) {
+        // 当前动态没有该标签，则加入关系表
+        const result = await momentService.addLabel(momentId, label.id)
+        console.log(result);
+      }
+    }
 
     // 3.返回响应
-    ctx.body = `${labels}:${momentId}`
+    ctx.body = "添加标签成功!"
   }
 }
 
