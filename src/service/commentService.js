@@ -37,7 +37,7 @@ class CommentService {
         JSON_OBJECT('id', u.id, 'name', u.name) user
       FROM comment c 
       LEFT JOIN user u ON c.user_id = u.id
-      WHERE c.moment_id = 1;
+      WHERE c.moment_id = ?;
     `
     const [result] = await connect.execute(statement, [momentId])
     return result
