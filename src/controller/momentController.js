@@ -64,6 +64,18 @@ class MomentController {
     // 3.返回响应
     ctx.body = result
   }
+
+  // 给动态添加标签
+  async labels(ctx, next) {
+    // 1.获取数据
+    const { labels } = ctx.request.body
+    const { momentId } = ctx.params
+
+    // 2.逻辑处理
+
+    // 3.返回响应
+    ctx.body = `${labels}:${momentId}`
+  }
 }
 
 module.exports = new MomentController()
