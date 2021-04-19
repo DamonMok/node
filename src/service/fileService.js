@@ -9,6 +9,14 @@ class FileService {
 
     return result
   }
+
+  // 根据用户id获取用户头像
+  async getAvatarByUserId(userId) {
+    const statement = `SELECT * FROM avatar WHERE user_id = ?;`
+    const [result] = await connect.execute(statement, [userId])
+
+    return result[0]
+  }
 }
 
 module.exports = new FileService()
