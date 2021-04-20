@@ -8,7 +8,7 @@ const userRouter = new Router({ prefix: '/user' })  // 创建路由并指定前�
 // 用户注册的Post请求
 userRouter.post('/', verifyUser, handlePassword, create)
 
-// 获取用户信息
+// 获取用户头像
 userRouter.get('/:userId/avatar', userInfo)
 
 module.exports = userRouter

@@ -17,7 +17,7 @@ class UserController {
     ctx.body = res
   }
 
-  // 获取用户信息(只获取头像信息)
+  // 获取用户头像信息
   async userInfo(ctx, next) {
     // 1.获取用户id
     const { userId } = ctx.params
