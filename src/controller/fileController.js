@@ -1,5 +1,6 @@
 const fileService = require('../service/fileService')
 const userService = require('../service/userService')
+const { APP_HOST, APP_PORT } = require('../app/config')
 
 
 class FileController {
@@ -13,7 +14,7 @@ class FileController {
     const result = await fileService.createAvatar(filename, mimetype, size, userId)
 
     // 3.把头像url更新到user表中
-    const avatar_url = `http:localhost:8000/user/${userId}/avatar`
+    const avatar_url = `${APP_HOST}:${APP_PORT}/user/${userId}/avatar`
     const avatarURLResult = await userService.updateUserAvatar(userId, avatar_url)
 
     // 3.返回响应
