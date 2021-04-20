@@ -7,6 +7,7 @@ class FileController {
   // 保存用户头像信息
   async saveAvatarInfo(ctx, next) {
     // 1.获取头像信息和用户id
+    console.log(ctx.req.file)
     const { filename, mimetype, size } = ctx.req.file
     const { id: userId } = ctx.user
 
@@ -26,7 +27,6 @@ class FileController {
 
   // 保存动态图片信息
   async savePictureInfo(ctx, next) {
-    console.log(1);
     // 1.获取图片信息、用户id、动态id
     const files = ctx.req.files
     const { id: userId } = ctx.user

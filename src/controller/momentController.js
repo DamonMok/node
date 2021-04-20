@@ -93,14 +93,26 @@ class MomentController {
 
   // 获取动态配图
   async fileInfo(ctx, next) {
-    // 1.获取图片文件名
-    const { filename } = ctx.params
+    try {
+      // 1.获取图片文件名和图片展示的大小类型
+      let { filename } = ctx.params
+      const { type } = ctx.query
 
-    // 2.根据文件名查询数据库中配图的信息
-    const result = await getFileByFileName(filename)
+      // 2.根据文件名查询数据库中配图的信息
+      const result = await getFileByFileName(filename)
 
-    ctx.response.set('content-type', result.mimetype)
-    ctx.body = fs.createReadStream(`${PICTURE_PATH}/${filename}`)
+      // 3.按照type展示对应的大/中/小图
+      console.log(type);
+      const types = ['large', 'middle', 'small']
+      if (type === 'large') {
+        filename = filename + '-' + type
+      }
+      console.log(filename);
+      ctx.response.set('content-type', result.mimetype)
+      ctx.body = fs.createReadStream(`${PICTURE_PATH}/${filename}`)
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
