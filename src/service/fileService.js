@@ -17,6 +17,14 @@ class FileService {
 
     return result[0]
   }
+
+  // 把动态图片信息保存到数据库
+  async createPicture(filename, mimetype, size, userId, momentId) {
+    const statement = `INSERT INTO file (filename, mimetype, size, user_id, moment_id) VALUES (?, ?, ?, ?, ?);`
+    const [result] = await connect.execute(statement, [filename, mimetype, size, userId, momentId])
+
+    return result
+  }
 }
 
 module.exports = new FileService()
