@@ -1,5 +1,10 @@
+const fs = require('fs')
+
 const labelService = require('../service/labelService')
 const momentService = require('../service/momentService')
+const fileService = require('../service/fileService')
+const { getFileByFileName } = require('../service/fileService')
+const { PICTURE_PATH } = require('../constants/filePath')
 
 class MomentController {
   // 发布动态
@@ -84,6 +89,18 @@ class MomentController {
 
     // 3.返回响应
     ctx.body = "添加标签成功!"
+  }
+
+  // 获取动态配图
+  async fileInfo(ctx, next) {
+    // 1.获取图片文件名
+    const { filename } = ctx.params
+
+    // 2.根据文件名查询数据库中配图的信息
+    const result = await getFileByFileName(filename)
+
+    ctx.response.set('content-type', result.mimetype)
+    ctx.body = fs.createReadStream(`${PICTURE_PATH}/${filename}`)
   }
 }
 

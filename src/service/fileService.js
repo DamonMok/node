@@ -25,6 +25,14 @@ class FileService {
 
     return result
   }
+
+  // 根据文件名获取配图信息
+  async getFileByFileName(filename) {
+    const statement = `SELECT * FROM file WHERE filename = ?;`
+    const [result] = await connect.execute(statement, [filename])
+
+    return result[0]
+  }
 }
 
 module.exports = new FileService()
